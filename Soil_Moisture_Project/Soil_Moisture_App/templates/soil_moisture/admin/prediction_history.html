@@ -1,0 +1,121 @@
+<style>
+    .table {
+        width: 90%;
+        margin: auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .table__header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    .table__body {
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background-color: #f2f2f2;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f9f9f9;
+        font-weight: bold;
+        color: #333;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    td[colspan] {
+        text-align: center;
+        font-style: italic;
+        color: #777;
+    }
+
+    .back-button {
+        display: block;
+        width: 150px;
+        margin: 20px auto;
+        padding: 10px;
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<main class="table">
+    <a href="{% url 'home' %}" class="back-button">Back</a>
+    <section class="table__header">
+      <h5>Prediction History</h5>
+    </section>
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Temperature (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Soil Texture</th>
+            <th>Soil Moisture (%)</th>
+            <th>Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if history %}
+            {% for data in history %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ data.date }}</td>
+                <td>{{ data.time }}</td>
+                <td>{{ data.location }}</td>
+                <td>{{ data.temperature }}</td>
+                <td>{{ data.humidity }}</td>
+                <td>{{ data.soil_texture }}</td>
+                <td>{{ data.soil_moisture }}</td>
+                <td>{{ data.comment }}</td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="9">No data available</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </section>
+</main>

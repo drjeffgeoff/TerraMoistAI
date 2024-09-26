@@ -1,0 +1,53 @@
+<button
+  type="button"
+  id="feedbackbutton"
+  data-toggle="modal"
+  data-target="#feedbackModal"
+>
+  Feedback
+</button>
+
+<section id="feedbackModal" class="feedbackmodal">
+  <div class="feedbackmodal-content">
+    <div class="feedbackmodal-header">
+      <h2>Feedback</h2>
+      <span id="feedback-close">&times;</span>
+    </div>
+    <hr />
+    <div class="feedbackmodal-body">
+      <p>
+        We would love to hear your feedback! Please let us know what you think
+        about our app.
+      </p>
+
+      <form id="feedbackform" class="feedbackform">
+        <label for="feeedbackType">Type of Feedback:</label>
+        <select id="feedbackType" name="feedbackType">
+          <option value="Bug">Bug</option>
+          <option value="Feature Request">Feature Request</option>
+          <option value="General Feedback">General Feedback</option>
+        </select>
+        <br />
+        <label for="feedback">Enter your Feedbach here:</label>
+        <textarea
+          id="feedback-input"
+          name="feedback"
+          rows="4"
+          cols="50"
+          required
+        ></textarea>
+      </form>
+    </div>
+    <hr />
+    <div class="feedbackmodal-footer">
+      <button
+        type="submit"
+        id="submitfeedback"
+        form="feedbackform"
+        class="submitfeedback"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</section>

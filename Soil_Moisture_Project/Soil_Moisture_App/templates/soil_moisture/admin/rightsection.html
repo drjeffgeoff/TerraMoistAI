@@ -1,0 +1,79 @@
+<!-- Loading static Files -->
+{% load static %}
+
+<div class="right-section">
+    <!-- darkmode -->
+    <div class="nav">
+        <button id="menu-btn">
+            <span class="material-icons-sharp">
+                menu
+            </span>
+        </button>
+        <div class="dark-mode">
+            <span class="material-icons-sharp active">
+                light_mode
+            </span>
+            <span class="material-icons-sharp">
+                dark_mode
+            </span>
+        </div>
+
+        <div class="profile">
+            <div class="info">
+                <p>Welcome, <b>{{ request.user }}</b></p>
+                
+            </div>
+            <div class="profile-photo">
+                <img src="{% static 'soil_moisture/images/admin.jpg' %}" alt="User Avatar" class="user-avatar">
+            </div>
+        </div>
+
+    </div>
+    <!-- End darkmode -->
+
+    <!-- User Profile -->
+    <div class="user-profile">
+        <div class="logo">
+            <i class="material-icons">cloud</i>
+            <h2>Today's Weather</h2>
+            <p><strong>City:</strong>  {{ weather_data.name }}</p>
+            <p><strong>Temperature:</strong>  {{ weather_data.main.temp }} °C</p>
+            <p><strong>Weather:</strong>  {{ weather_data.weather.0.description }}</p>
+        </div>
+    </div>
+    <!-- End User Profile -->
+
+    <!-- Notifications -->
+    <div class="reminders">
+        <div class="header">
+            <h2>Notifications</h2>
+            {% if notifications_count > 0 %}
+            <p>unread: <strong>{{ notifications_count }}</strong></p>
+            {% endif %}
+            <span class="material-icons-sharp">
+                notifications_none
+            </span>
+            
+        </div>
+        {% for notification in notifications %}
+        <div class="notification">
+            <div class="icon">
+                <span class="material-symbols-outlined">chat</span>
+            </div>
+            <div class="content"> 
+                <div class="info">   
+                    <h3>{{ notification.message }}</h3>  
+                    {% if not notification.is_read %}
+                <a href="{% url 'mark_as_read' notification.id %}"><strong>Mark as read</strong></a>
+            {% endif %} 
+                </div>
+                <span class="material-icons-sharp">
+                    more_vert
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- End Reminders -->
+
+</div>

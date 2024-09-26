@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'soil_moisture/css/home.css' %}">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>SoilSense AI | Admin Dashboard</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        {% include 'soil_moisture/admin/sidebar.html' %}
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+        <main>
+            
+            <h1><span class="material-symbols-outlined">dashboard</span> Dashboard</h1>
+           
+            <!-- Analysis -->
+            <div class="analyse">
+                {% for item in location_data %}
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h2>{{ item.location }}</h2>
+                            <p>Average Rainfall: {{ item.avg_rainfall }}</p>
+                            <br>
+                            <p>Average Moisture: {{ item.avg_moisture }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div> 
+                
+            <!-- End of Analysis -->
+
+            <!-- Canvas for Line Graphs -->
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Temperature and Humidity Chart</h2>
+                    <canvas id="temperatureHumidityChart"></canvas>                
+            </div>
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Soil Moisture over time</h2>
+                <canvas id="soilMoistureChart"></canvas>
+            </div>
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Average Soil Moisture by Soil Texture</h2>
+                <div style="width: 50%; height: 400px; margin: 0 auto;">
+                    <canvas id="chart-soil-texture"></canvas>
+                </div>
+                
+            </div>
+
+            <!-- Users Section -->
+            <!-- {% include 'soil_moisture/admin/users.html' %} -->
+            <!-- End of Users Section -->
+
+            <!-- Recent Predictions -->
+            
+            <!-- End of Recent Predictions -->
+
+            
+            
+
+        </main>
+        <!-- End of Main Content -->
+
+        <!-- Right Section -->
+       {% include 'soil_moisture/admin/rightsection.html' %}
+
+
+    </div>
+
+    <!-- Js -->
+    <script src="{% static 'soil_moisture/js/mode.js' %}"></script>
+    <script>
+        // Data from Django context
+        const soilData = JSON.parse('{{ data|escapejs }}');
+        const rawSoilTHeaders = '{{ soil_texture_headers|escapejs }}';
+        //const soilTextureHeaders = JSON.parse(rawSoilTHeaders);
+        const avgMoistures = JSON.parse('{{ avg_moistures|escapejs }}');
+        
+
+        // Pie Chart for Average Soil Moisture by Soil Texture
+        var ctxSoilTexture = document.getElementById("chart-soil-texture").getContext("2d");
+        new Chart(ctxSoilTexture, {
+            type: "pie",
+            data: {
+                labels: ['Loam', 'Clay', 'Sand'],
+                datasets: [{
+                    label: "Average Soil Moisture",
+                    data: avgMoistures,
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)"
+                    ],
+                    borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                
+            }
+        });
+
+    </script>
+
+    <!-- Graphs -->
+    <script>
+        // Parse data from Django context
+        const data = JSON.parse('{{ data|escapejs }}');
+
+        // Prepare data for Soil Moisture Chart
+        const dates = data.map(item => `${item.date} `);
+        const soilMoistures = data.map(item => item.soil_moisture);
+
+        const temperature = data.map(item => item.temperature);
+        const humidity = data.map(item => item.humidity);
+
+        // Create Soil Moisture Chart
+        const ctx1 = document.getElementById('soilMoistureChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Soil Moisture',
+                    data: soilMoistures,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Create Temperature and Humidity Chart
+        const ctx2 = document.getElementById('temperatureHumidityChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Temperature',
+                        data: temperature,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false
+                    },
+                    {
+                        label: 'Humidity',
+                        data: humidity,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    
+<script>
+    const feedbackItem = document.getElementById("dashbord-sidebar-item");
+    feedbackItem.classList.add("active");
+  </script>
+    
+</body>
+
+</html>
+
+
+
+
+
+    

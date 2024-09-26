@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa; /* Light background color */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main container styling */
+        .table {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Table header styling */
+        .table__header {
+            margin-bottom: 20px;
+        }
+
+        .table__header h5 {
+            font-size: 1.5em;
+            margin: 0;
+            color: #007bff; /* Primary color */
+        }
+
+        /* Table body styling */
+        .table__body {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            backdrop-filter: blur(10px); /* Blur effect */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow-x: auto; /* Horizontal scroll for wide tables */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #007bff; /* Primary color */
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background: #f1f1f1; /* Light hover effect */
+        }
+
+        td {
+            padding: 12px;
+        }
+
+        /* Icon styling */
+        .icon-arrow {
+            font-size: 0.8em;
+            color: white;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .table__body {
+                padding: 10px;
+            }
+
+            th, td {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <main class="table">
+        <section class="table__header">
+            <h5>Prediction History</h5>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th># <span class="icon-arrow">&uarr;</span></th>
+                        <th>Date <span class="icon-arrow">&uarr;</span></th>
+                        <th>Time <span class="icon-arrow">&uarr;</span></th>
+                        <th>Location <span class="icon-arrow">&uarr;</span></th>
+                        <th>Temperature (°C) <span class="icon-arrow">&uarr;</span></th>
+                        <th>Humidity (%) <span class="icon-arrow">&uarr;</span></th>
+                        <th>Soil Texture <span class="icon-arrow">&uarr;</span></th>
+                        <th>Soil Moisture (%) <span class="icon-arrow">&uarr;</span></th>
+                        <th>Remark <span class="icon-arrow">&uarr;</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if history %}
+                        {% for data in history %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ data.date }}</td>
+                                <td>{{ data.time }}</td>
+                                <td>{{ data.location }}</td>
+                                <td>{{ data.temperature }}</td>
+                                <td>{{ data.humidity }}</td>
+                                <td>{{ data.soil_texture }}</td>
+                                <td>{{ data.soil_moisture }}</td>
+                                <td>{{ data.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="9">No data available</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'soil_moisture/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'feedback/css/feedback-admin.css' %}"/>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>SoilSense AI | Admin Dashboard</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        {% include 'soil_moisture/admin/sidebar.html' %}
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+        <main>
+            
+            <h1><span class="material-symbols-outlined">dashboard</span> Dashboard</h1>
+           
+            <!-- Analysis -->
+            <div class="analyse">
+                {% for item in location_data %}
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h2>{{ item.location }}</h2>
+                            <p>Average Rainfall: {{ item.avg_rainfall }}</p>
+                            <br>
+                            <p>Average Moisture: {{ item.avg_moisture }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div> 
+                
+            <!-- End of Analysis -->
+
+            <div class="content">
+                <!-- Main dashboard content goes here -->
+      
+                {% include "feedback/feedback_container.html" %}
+              </div>
+           
+            
+            
+
+        </main>
+        <!-- End of Main Content -->
+
+        <!-- Right Section -->
+       {% include 'soil_moisture/admin/rightsection.html' %}
+
+
+    </div>
+
+    <!-- Js -->
+     
+    <script>
+        const feedbackItem = document.getElementById("sidebar-feedback-item");
+        feedbackItem.classList.add("active");
+      </script>
+   
+    
+</body>
+
+</html>

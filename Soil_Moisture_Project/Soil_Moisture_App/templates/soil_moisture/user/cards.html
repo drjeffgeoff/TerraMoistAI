@@ -1,0 +1,50 @@
+<div class="row">
+    
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons">cloud</i>
+                </div>
+                <div class="text-end pt-1">
+                  <div class="card-footer p-3">
+                    <p class="text-sm mb-0 text-capitalize" style="color: black;">Today's Weather</p>
+                  </div>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p>City: {{ weather_data.name }}</p>
+                <p>Temperature: {{ weather_data.main.temp }} °C</p>
+                <p>Weather: {{ weather_data.weather.0.description }}</p>
+              </div>
+            </div>
+          </div>
+        
+        {% for item in location_data %}
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">weekend</i>
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize" style="color: black;">{{ item.location }}</p>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+                <p>Average Moisture: {{ item.avg_moisture }}</p>
+                <p>Average Rainfall: {{ item.avg_rainfall }}</p>
+                <hr class="dark horizontal">
+                <div class="d-flex">
+                  <i class="material-icons text-sm my-auto me-1">schedule</i>
+                  <p class="mb-0 text-sm">Updated regularly</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+  </div>

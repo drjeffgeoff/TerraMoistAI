@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predict Soil Moisture</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'soil_moisture/css/predict.css' %}">
+</head>
+<body>
+  <div class="container">
+      <div class="row">
+          <div class="column">
+              <div class="content">
+                <div class="mt-4">
+                    <h3>Soil Texture Information:</h3>
+                    <div class="card-deck">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Field A</h5>
+                                <p class="card-text">Soil Texture: Loam</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Field B</h5>
+                                <p class="card-text">Soil Texture: Clay</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Field C</h5>
+                                <p class="card-text">Soil Texture: Sand</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <h2 class="mt-4">Input Data to Predict Soil Moisture</h2>
+                  <form method="POST">
+                      {% csrf_token %}
+                      <div class="form-group">
+                          <label for="date">Date:</label>
+                          <input type="date" class="form-control" name="date" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="time">Time:</label>
+                          <input type="time" class="form-control" name="time" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="location">Location:</label>
+                          <select class="form-control" id="location" name="location" required>
+                              <option value="Field A">Field A</option>
+                              <option value="Field B">Field B</option>
+                              <option value="Field C">Field C</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="temperature">Temperature:</label>
+                          <input type="number" step="0.1" class="form-control" name="temperature" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="humidity">Humidity:</label>
+                          <input type="number" step="0.1" class="form-control" name="humidity" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="soil_texture">Soil Texture:</label>
+                          <select class="form-control" id="soil_texture" name="soil_texture" required>
+                              <option value="Loam">Loam</option>
+                              <option value="Clay">Clay</option>
+                              <option value="Sand">Sand</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="rainfall">Rainfall:</label>
+                          <input type="number" step="0.1" class="form-control" name="rainfall" required>
+                      </div>
+                      <button type="submit" class="btn">Predict and Save</button>
+                      <a href="{% url 'home' %}"  style ="padding-left:600px; color:white;"class="btn">Back</a>
+                  </form>
+                  {% if prediction %}
+                      <h3 class="mt-4">Prediction:</h3>
+                      <p>Predicted Soil Moisture: {{ prediction }}</p>
+                      <p>Comment: {{ comment }}</p>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const locationField = document.getElementById('location');
+        const soilTextureField = document.getElementById('soil_texture');
+
+        const soilTextures = {
+            'Field A': 'Loam',
+            'Field B': 'Clay',
+            'Field C': 'Sand'
+        };
+
+        locationField.addEventListener('change', function() {
+            const selectedLocation = locationField.value;
+            soilTextureField.value = soilTextures[selectedLocation];
+        });
+
+        // Trigger change event to set initial soil texture based on the default location
+        locationField.dispatchEvent(new Event('change'));
+    });
+  </script>
+
+      
+<script>
+    const feedbackItem = document.getElementById("upload-sidebar-item");
+    feedbackItem.classList.add("active");
+  </script>
+</body>
+</html>

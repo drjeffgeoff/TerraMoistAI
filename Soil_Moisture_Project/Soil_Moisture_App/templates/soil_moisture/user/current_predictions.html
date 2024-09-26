@@ -1,0 +1,55 @@
+<!-- templates/soil_moisture/current_predictions.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Predictions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Recent Predictions</h2>
+        {% if latest_entries %}
+            {% for field, entry in latest_entries.items %}
+                <h3>{{ field }}</h3>
+                {% if entry %}
+                    <table class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Temperature</th>
+                                <th>Humidity</th>
+                                <th>Soil Texture</th>
+                                <th>Rainfall</th>
+                                <th>Soil Moisture</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ entry.date }}</td>
+                                <td>{{ entry.time }}</td>
+                                <td>{{ entry.location }}</td>
+                                <td>{{ entry.temperature }}</td>
+                                <td>{{ entry.humidity }}</td>
+                                <td>{{ entry.soil_texture }}</td>
+                                <td>{{ entry.rainfall }}</td>
+                                <td>{{ entry.soil_moisture }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No data available for {{ field }}.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No current predictions available.</p>
+        {% endif %}
+        <a href="{% url 'main' %}" class="btn btn-primary btn-lg mt-3" style="border-radius: 25px;">Back</a>
+    </div>
+</body>
+</html>

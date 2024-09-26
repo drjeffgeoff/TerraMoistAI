@@ -1,0 +1,56 @@
+<!-- =============== CSS ================ -->
+
+<aside>
+  <div class="toggle">
+    <div class="logo">
+      <h2>SoilSense<span class="danger" style="color: red;">AI</span></h2>
+    </div>
+    <div class="close" id="close-btn">
+      <span class="material-icons-sharp"> close </span>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <a id="dashbord-sidebar-item" href="{% url 'home' %}">
+      <span class="material-icons-sharp">dashboard</span>
+      <h3>Dashboard</h3>
+    </a>
+    <a href="{% url 'users' %}">
+      <span class="material-icons-sharp">person_outline</span>
+      <h3>Users</h3>
+    </a>
+    <a href="{% url 'prediction_history' %}">
+      <span class="material-icons-sharp">receipt_long</span>
+      <h3>History</h3>
+    </a>
+    <a href="{% url 'current_predictions' %}">
+      <span class="material-symbols-outlined">show_chart</span>
+      <h3>Predictions</h3>
+    </a>
+    <a id="upload-sidebar-item" href="{% url 'predict' %}">
+
+      <span class="material-symbols-outlined">upload</span>
+      <h3>Upload Data</h3>
+    </a>
+    <a href="#">
+      <span class="material-icons-sharp">notifications_none</span>
+      <h3>Notifications</h3>
+    </a>
+    <a id="sidebar-feedback-item" href="/feedback/admin/list/">
+      <span class="material-symbols-outlined"> feedback </span>
+      <h3>Feedback</h3>
+    </a>
+    <a href="#">
+      <span class="material-symbols-outlined">help</span>
+      <h3>Help/FAQ</h3>
+    </a>
+    <a href="#">
+      <span class="material-icons-sharp">settings</span>
+      <h3>Settings</h3>
+    </a>
+    <a href="{% url 'logout' %}">
+      <span class="material-icons-sharp">logout</span>
+      <h3>Logout</h3>
+    </a>
+  </div>
+</aside>

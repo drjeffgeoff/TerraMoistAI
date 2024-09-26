@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+    
+<head>
+	<title>Register</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+	<!-- Material icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+	{% load static %}
+    <link rel="stylesheet" href="{% static 'soil_moisture/css/login.css' %}">
+
+</head>
+<body>	
+	<div class="wrapper">
+
+		<a href="{% url 'landing_page' %}"><span class="material-symbols-outlined" style="color: #fff;">arrow_back</span></a>
+		
+		<form method="POST" action="">
+			{% csrf_token %}
+			<h1>Sign Up</h1>
+
+			<div class="input-box">
+				{{ form.username }}
+				<i class='bx bxs-user'></i>
+			</div>
+			<div class="input-box">
+				{{ form.email }}
+				<i class='bx bxs-envelope'></i>			
+			</div>
+			<div class="input-box">
+				{{ form.password1 }}
+				<i class='bx bxs-lock-alt'></i>
+			</div>
+			<div class="input-box">
+				{{ form.password2 }}
+				<i class='bx bxs-lock-alt'></i>
+			</div>
+			<div class="btnn">
+                <button type="submit">Sign Up</button> 
+            </div>
+			
+			{{ form.errors }}
+
+			<div class="mt-4 register-link">
+                Already have an account? <a href="{% url 'login' %}" >Login</a>
+            </div>		
+		</form>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

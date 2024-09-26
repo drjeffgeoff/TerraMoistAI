@@ -1,0 +1,7 @@
+# ignore the virtual environment(myvenv)
+myvenv/
+.venv
+
+__pycache__
+
+node_modules/

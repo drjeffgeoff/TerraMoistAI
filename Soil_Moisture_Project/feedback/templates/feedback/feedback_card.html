@@ -1,0 +1,22 @@
+{% for feed in feedback %}
+<div class="feedback-card-container">
+  <div class="feedback-card">
+    <div class="feedback-card-header">
+      <h3 style="color: black">Type: {{feed.feedbackType}}</h3>
+      <p class="feedbacksubmitedon">
+        <span>Submitted on:</span> {{feed.feedbackDate}}
+      </p>
+    </div>
+    <div class="feedback-card-body">
+      <p>{{feed.feedback}}</p>
+    </div>
+    
+    <div class="feedback-card-footer">
+      
+      <a href="{% url 'read-feedback' feedback_id=feed.id  %}" class="markread">Mark as Read</a>
+
+    </div>
+  
+  </div>
+</div>
+{% endfor %}

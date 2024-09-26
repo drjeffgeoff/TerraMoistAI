@@ -1,0 +1,43 @@
+<main class="table">
+    <section class="table__header">
+      <h5>Prediction History</h5>
+    </section>
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th># <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Date <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Time <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Location <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Temperature (°C) <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Humidity (%) <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Soil Texture <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Soil Moisture (%) <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Remark (%) <span class="icon-arrow">&UpArrow;</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if history %}
+            {% for data in history %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ data.date }}</td>
+                <td>{{ data.time }}</td>
+                <td>{{ data.location }}</td>
+                <td>{{ data.temperature }}</td>
+                <td>{{ data.humidity }}</td>
+                <td>{{ data.soil_texture }}</td>
+                <td>{{ data.soil_moisture }}</td>
+                <td>{{ data.comment }}</td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="8">No data available</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </section>
+  </main>

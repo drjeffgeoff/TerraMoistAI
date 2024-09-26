@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "chart.js": "^4.4.3",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "moment": "^2.30.1",
+    "vue-chartjs": "^5.3.1"
+  },
+  "name": "soil_moisture_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "description": ""
+}
